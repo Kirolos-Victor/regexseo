@@ -19,6 +19,7 @@
         * {
             font-family: Roboto, sans-serif;
             color: #000000;
+            background: #FFFFFF;
         }
 
         .navbar {
@@ -181,7 +182,6 @@
             </ul>
     </nav>
     <div class="content-wrapper">
-        <div class="container mt-2">
             @if($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -194,7 +194,6 @@
             @if(session('success'))
                 <div class="alert alert-success">{{session('success')}}</div>
             @endif
-
         </div>
         <main class="py-4">
             @yield('content')

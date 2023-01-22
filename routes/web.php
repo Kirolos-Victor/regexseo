@@ -23,3 +23,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/upload', 'UploadController@index')->name('upload');
 Route::post('/upload', 'UploadController@upload');
+Route::middleware('admin')->prefix('admin')->group(function () {
+    Route::get('/approve', 'AdminController@getImages');
+    Route::post('/{image}/approve', 'AdminController@approveImage');
+});

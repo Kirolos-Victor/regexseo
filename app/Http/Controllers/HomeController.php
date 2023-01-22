@@ -9,7 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         if (Request()->ajax()) {
-            $images = Image::with('user')->latest()->paginate(12);
+            $images = Image::ApprovedImages()->with('user')->paginate(12);
             return response()->json($images);
         }
         return view('frontend.main');

@@ -8,8 +8,8 @@
                 </div>
 
                 <div class="btn-group">
-                    <button class="sign-button active" @click.prevent="loginPage =true;">SIGN IN</button>
-                    <button class="sign-button" @click.prevent="loginPage=false;">SIGN UP</button>
+                    <button class="sign-button active" @click.prevent="switchPages">SIGN IN</button>
+                    <button class="sign-button" @click.prevent="switchPages">SIGN UP</button>
                 </div>
                 <div class="email">
                     <div>EMAIL</div>
@@ -32,8 +32,8 @@
                     LOGIN
                 </div>
                 <div class="btn-group">
-                    <button class="sign-button" @click.prevent="loginPage=true;">SIGN IN</button>
-                    <button class="sign-button active" @click.prevent="loginPage=false;">SIGN UP</button>
+                    <button class="sign-button" @click.prevent="switchPages">SIGN IN</button>
+                    <button class="sign-button active" @click.prevent="switchPages">SIGN UP</button>
                 </div>
                 <div class="email">
                     <div>name</div>
@@ -78,6 +78,10 @@ export default {
         }
     },
     methods: {
+        switchPages() {
+            this.loginPage = !this.loginPage
+            this.errors = '';
+        },
         login() {
             const formData = new FormData(document.getElementById('sign-in-form'));
             axios.post('/login', formData).then(() => {

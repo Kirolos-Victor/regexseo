@@ -56,7 +56,7 @@ export default {
             let formData = new FormData(document.getElementById('upload-form'));
             formData.append('image', this.image);
             axios.post('/upload', formData).then(() => {
-                window.location.href = '/home';
+                window.location.reload();
             }).catch(e => {
                 this.errors = e.response.data.errors.description[0];
                 this.errors = e.response.data.errors.title[0];

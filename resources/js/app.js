@@ -4,9 +4,10 @@ window.Vue = require('vue');
 var VueExpandableImage = require('vue-expandable-image')
 Vue.use(VueExpandableImage)
 
-Vue.component('main-page', require('./components/MainPage.vue').default);
-Vue.component('login-page', require('./components/Login.vue').default);
-Vue.component('upload-page', require('./components/UploadPage.vue').default);
+Vue.component('main-page', require('./Sections/MainPage.vue').default);
+Vue.component('login-page', require('./Sections/Login.vue').default);
+Vue.component('upload-page', require('./Sections/UploadPage.vue').default);
+Vue.component('approve-page', require('./Sections/ApprovePage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

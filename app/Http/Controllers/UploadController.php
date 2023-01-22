@@ -20,10 +20,19 @@ class UploadController extends Controller
         $imageName = (new UploadImageService())->get($request);
         $data = $request->validated();
         $data['image'] = $imageName;
+        $data['approved'] = 0;
         if ($user != null) {
             $data['user_id'] = $user->id;
+            $data['approved'] = 1;
         }
         Image::create($data);
-        session()->flash('success', 'You have uploaded an image successfully');
+        if ($user != null) {
+            session()->flash('success', 'The image is uploaded successfully on the home page.');
+        } else {
+            session()->flash(
+                'success',
+                'You have uploaded an image successfully, Please wait for the admin approve to appear on the home page!'
+            );
+        }
     }
 }
