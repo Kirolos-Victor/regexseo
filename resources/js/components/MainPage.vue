@@ -2,7 +2,7 @@
     <div class="my-container">
         <div class="row">
             <div class="col-2" v-for="image in images">
-                <img :src="'/images/'+image.image" class="img-fluid">
+                <expandable-image :src="'/images/'+image.image" class="img-fluid" />
                 <div class="title">
                     {{ image.title }}
                 </div>
