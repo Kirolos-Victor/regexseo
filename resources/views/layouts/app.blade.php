@@ -158,7 +158,7 @@
                         <a class="nav-link favorite-button" href=""><i class="fas fa-heart mr-4 ml-1"></i>Favorites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-center upload-button" href="">Upload</a>
+                        <a class="nav-link text-center upload-button" href="{{route('upload')}}">Upload</a>
                     </li>
 
                     <li class="nav-item">
@@ -190,9 +190,7 @@
             @if(session('success'))
                 <div class="alert alert-success">{{session('success')}}</div>
             @endif
-            @if(session('fail'))
-                <div class="alert alert-danger">{{session('fail')}}</div>
-            @endif
+
         </div>
         <main class="py-4">
             @yield('content')

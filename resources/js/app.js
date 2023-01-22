@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('main-page', require('./components/MainPage.vue').default);
 Vue.component('login-page', require('./components/Login.vue').default);
+Vue.component('upload-page', require('./components/UploadPage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('frontend.main');
 });
 Route::get('/favorites', function () {
     return view('frontend.favorites');
 });
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/upload', 'UploadController@index')->name('upload');
+Route::post('/upload', 'UploadController@upload');

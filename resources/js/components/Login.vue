@@ -186,6 +186,7 @@ input[type="password"]::placeholder {
     font-size: 18px;
     line-height: 21px;
     color: white;
+    text-transform: uppercase;
 }
 
 .check-admin {

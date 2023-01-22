@@ -1,186 +1,53 @@
 <template>
     <div class="my-container">
         <div class="row">
-            <div class="col-2">
-                <img src="https://picsum.photos/500/366" class="img-fluid">
-
+            <div class="col-2" v-for="image in images">
+                <img :src="'/images/'+image.image" class="img-fluid">
                 <div class="title">
-                    Lorem ipsum
+                    {{ image.title }}
                 </div>
                 <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
+                    {{ image.description }}
                 </div>
                 <div class="favorite">
                     <i class="fas fa-heart mr-2"></i>24
                 </div>
             </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/256" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-2"></i>24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/135" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-2"></i>24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/256" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-2"></i>24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-            <div class="col-2">
-                <img src="https://picsum.photos/289/366" class="img-fluid">
-
-                <div class="title">
-                    Lorem ipsum
-                </div>
-                <div class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                </div>
-                <div class="favorite">
-                    <i class="fas fa-heart mr-4 ml-1"></i> 24
-                </div>
-            </div>
-
         </div>
-        <div class="d-flex justify-content-center">
-            <button class="load-more-button">LOAD MORE</button>
-
+        <div class="d-flex justify-content-center" v-if="nextPage !=null">
+            <button class="load-more-button" @click.prevent="getImages">LOAD MORE</button>
         </div>
     </div>
 
 </template>
 
 <script>
-    export default {
+export default {
+    name: "MainPage",
+    data() {
+        return {
+            images: [],
+            nextPage: null
+        }
+    },
+    methods: {
+        getImages() {
+            let url;
+            if (this.nextPage == null) {
+                url = '/home';
+            } else {
+                url = '/home?page=' + this.nextPage;
+            }
+            axios.get(url).then((data) => {
+                this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
+                this.images = this.images.concat(data.data.data);
+            })
+        }
+    },
+    mounted() {
+        this.getImages();
 
     }
+
+}
 </script>
