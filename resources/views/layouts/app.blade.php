@@ -148,6 +148,10 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
+                        <a class="nav-link text-center upload-button" href="{{route('upload')}}">Upload</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link text-center login-button" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                 @else

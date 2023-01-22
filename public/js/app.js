@@ -2246,7 +2246,9 @@ var render = function render() {
       staticClass: "title"
     }, [_vm._v("\n                " + _vm._s(image.title) + "\n            ")]), _vm._v(" "), _c("div", {
       staticClass: "description"
-    }, [_vm._v("\n                " + _vm._s(image.description) + "\n            ")]), _vm._v(" "), _vm._m(0, true)], 1);
+    }, [_vm._v("\n                " + _vm._s(image.description) + "\n            ")]), _vm._v(" "), image.user != null ? _c("div", {
+      staticClass: "mt-3"
+    }, [_vm._v("\n                Author: " + _vm._s(image.user.name) + "\n            ")]) : _vm._e(), _vm._v(" "), _vm._m(0, true)], 1);
   }), 0), _vm._v(" "), _vm.nextPage != null ? _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_c("button", {

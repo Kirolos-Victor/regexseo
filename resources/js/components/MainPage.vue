@@ -2,12 +2,15 @@
     <div class="my-container">
         <div class="row">
             <div class="col-2" v-for="image in images">
-                <expandable-image :src="'/images/'+image.image" class="img-fluid" />
+                <expandable-image :src="'/images/'+image.image" class="img-fluid"/>
                 <div class="title">
                     {{ image.title }}
                 </div>
                 <div class="description">
                     {{ image.description }}
+                </div>
+                <div class="mt-3" v-if="image.user != null">
+                    Author: {{ image.user.name }}
                 </div>
                 <div class="favorite">
                     <i class="fas fa-heart mr-2"></i>24
