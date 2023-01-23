@@ -5,7 +5,7 @@
                 <image-favorite :image="image"></image-favorite>
             </div>
         </div>
-        <div class="d-flex justify-content-center" v-if="nextPage !=null">
+        <div class="d-flex justify-content-center" v-if="nextPage !=null" v-observe-visibility="getImages">
             <button class="load-more-button" @click.prevent="getImages">LOAD MORE</button>
         </div>
     </div>
@@ -41,6 +41,5 @@ export default {
     mounted() {
         this.getImages();
     }
-
 }
 </script>

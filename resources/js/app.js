@@ -1,6 +1,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueObserveVisibility from 'vue-observe-visibility'
+
+Vue.use(VueObserveVisibility)
 var VueExpandableImage = require('vue-expandable-image')
 Vue.use(VueExpandableImage)
 

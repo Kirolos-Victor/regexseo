@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center" v-if="nextPage !=null">
+        <div class="d-flex justify-content-center" v-if="nextPage !=null" v-observe-visibility="getImages">
             <button class="load-more-button" @click.prevent="getImages">LOAD MORE</button>
         </div>
     </div>

@@ -31,7 +31,6 @@ export default {
                 axios.post('/admin/' + id + '/approve').then(() => {
                     this.approve = true;
                 })
-
             }
         }
     }
