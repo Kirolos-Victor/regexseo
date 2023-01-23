@@ -160,7 +160,8 @@
                         <a class="nav-link user-button">{{ Auth()->user()->email }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link favorite-button" href=""><i class="fas fa-heart mr-4 ml-1"></i>Favorites</a>
+                        <a class="nav-link favorite-button" href="{{route('favorites')}}"><i
+                                class="fas fa-heart mr-4 ml-1"></i>Favorites</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-center upload-button" href="{{route('upload')}}">Upload</a>
@@ -182,22 +183,22 @@
             </ul>
     </nav>
     <div class="content-wrapper">
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success">{{session('success')}}</div>
-            @endif
-        </div>
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success">{{session('success')}}</div>
+        @endif
     </div>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
 </body>
 </html>

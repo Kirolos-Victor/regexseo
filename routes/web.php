@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('frontend.main');
 });
-Route::get('/favorites', function () {
-    return view('frontend.favorites');
-});
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/upload', 'UploadController@index')->name('upload');
@@ -26,4 +23,8 @@ Route::post('/upload', 'UploadController@upload');
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/approve', 'AdminController@getImages');
     Route::post('/{image}/approve', 'AdminController@approveImage');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/favorites', 'FavoriteController@index')->name('favorites');
+    Route::post('/{image}/add-to-favorite', 'FavoriteController@addToFavorite');
 });

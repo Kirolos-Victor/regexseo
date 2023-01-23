@@ -7,9 +7,6 @@
         <div class="description">
             {{ image.description }}
         </div>
-        <div class="mt-3" v-if="image.user != null">
-            Author: {{ image.user.name }}
-        </div>
         <div class="allow-button approved" v-if="approve">
             Approved
         </div>
