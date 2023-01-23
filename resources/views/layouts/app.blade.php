@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>window.Auth ={!! json_encode(Auth()->user())!!}</script>
     <!-- Font Awesome 5.15.1 CSS -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
     <!-- Styles -->
@@ -19,7 +20,10 @@
         * {
             font-family: Roboto, sans-serif;
             color: #000000;
-            background: #FFFFFF;
+        }
+
+        body {
+            background-color: white;
         }
 
         .navbar {
@@ -200,5 +204,6 @@
         @yield('content')
     </main>
 </div>
+
 </body>
 </html>

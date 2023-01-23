@@ -20,5 +20,7 @@ class FavoriteController extends Controller
     public function addToFavorite(Image $image)
     {
         $image->favorites()->toggle(Auth()->id());
+        $imageCount = $image->favorites()->count();
+        return response()->json($imageCount);
     }
 }

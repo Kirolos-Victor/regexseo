@@ -2158,15 +2158,22 @@ __webpack_require__.r(__webpack_exports__);
   name: "ImageFavorite",
   props: ['image'],
   data: function data() {
-    return {};
+    return {
+      favoriteCount: '',
+      auth: window.Auth
+    };
   },
   methods: {
     addToFavorite: function addToFavorite() {
       var _this = this;
-      axios.post('/' + this.image.id + '/add-to-favorite').then(function () {
+      axios.post('/' + this.image.id + '/add-to-favorite').then(function (data) {
         _this.image.favorite = !_this.image.favorite;
+        _this.favoriteCount = data.data;
       });
     }
+  },
+  created: function created() {
+    this.favoriteCount = this.image.favorites.length;
   }
 });
 
@@ -2671,7 +2678,7 @@ var render = function render() {
     staticClass: "description"
   }, [_vm._v("\n        " + _vm._s(_vm.image.description) + "\n    ")]), _vm._v(" "), _vm.image.user != null ? _c("div", {
     staticClass: "mt-3"
-  }, [_vm._v("\n        Author: " + _vm._s(_vm.image.user.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Author: " + _vm._s(_vm.image.user.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _vm.auth != null ? _c("div", {
     staticClass: "favorite",
     on: {
       click: _vm.addToFavorite
@@ -2680,7 +2687,7 @@ var render = function render() {
     staticClass: "fas fa-heart mr-2"
   }) : _c("i", {
     staticClass: "far fa-heart mr-2"
-  })])], 1);
+  }), _vm._v("\n        " + _vm._s(_vm.favoriteCount) + "\n    ")]) : _vm._e()], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

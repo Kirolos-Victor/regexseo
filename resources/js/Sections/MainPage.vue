@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             images: [],
-            nextPage: null
+            nextPage: null,
         }
     },
     methods: {
