@@ -11,7 +11,7 @@ class FavoriteController extends Controller
     public function index()
     {
         if (Request()->ajax()) {
-            $images = Auth()->user()->favoriteImages()->with('user')->latest()->paginate(12);
+            $images = Auth()->user()->favoriteImages()->with('user')->latest()->paginate(20);
             return response()->json($images);
         }
         return view('frontend.favorites');
