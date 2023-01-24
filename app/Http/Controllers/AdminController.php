@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function getImages()
     {
         if (Request()->ajax()) {
-            $images = Image::NotApprovedImages()->paginate(12);
+            $images = Image::NotApprovedImages()->paginate(20);
             return response()->json($images);
         }
         return view('admin.approve');
