@@ -1918,12 +1918,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       images: [],
-      nextPage: null
+      nextPage: null,
+      loader: false
     };
   },
   methods: {
     getImages: function getImages() {
       var _this = this;
+      this.loader = true;
       var url;
       if (this.nextPage == null) {
         url = '/admin/approve';
@@ -1933,6 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (data) {
         _this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
         _this.images = _this.images.concat(data.data.data);
+        _this.loader = false;
       });
     }
   },
@@ -1957,12 +1960,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       images: [],
-      nextPage: null
+      nextPage: null,
+      loader: false
     };
   },
   methods: {
     getImages: function getImages() {
       var _this = this;
+      this.loader = true;
       var url;
       if (this.nextPage == null) {
         url = '/favorites';
@@ -1972,6 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (data) {
         _this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
         _this.images = _this.images.concat(data.data.data);
+        _this.loader = false;
       });
     }
   },
@@ -2048,12 +2054,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       images: [],
-      nextPage: null
+      nextPage: null,
+      loader: false,
+      auth: window.Auth
     };
   },
   methods: {
     getImages: function getImages() {
       var _this = this;
+      this.loader = true;
       var url;
       if (this.nextPage == null) {
         url = '/home';
@@ -2063,6 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (data) {
         _this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
         _this.images = _this.images.concat(data.data.data);
+        _this.loader = false;
       });
     }
   },
@@ -2213,15 +2223,11 @@ var render = function render() {
       expression: "getImages"
     }],
     staticClass: "d-flex justify-content-center"
-  }, [_c("button", {
-    staticClass: "load-more-button",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.getImages.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("LOAD MORE")])]) : _vm._e()]);
+  }) : _vm._e(), _vm._v(" "), _vm.loader ? _c("div", {
+    staticClass: "d-flex justify-content-center mt-5"
+  }, [_c("div", {
+    staticClass: "loader"
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2270,15 +2276,11 @@ var render = function render() {
       expression: "getImages"
     }],
     staticClass: "d-flex justify-content-center"
-  }, [_c("button", {
-    staticClass: "load-more-button",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.getImages.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("LOAD MORE")])]) : _vm._e()]);
+  }) : _vm._e(), _vm._v(" "), _vm.loader ? _c("div", {
+    staticClass: "d-flex justify-content-center mt-5"
+  }, [_c("div", {
+    staticClass: "loader"
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2495,8 +2497,15 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "my-container"
-  }, [_c("div", {
+    staticClass: "my-container overflow-auto"
+  }, [_vm.auth != null && _vm.auth.is_admin === 1 ? _c("div", {
+    staticClass: "d-flex justify-content-start mb-5"
+  }, [_c("a", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      href: "/admin/approve"
+    }
+  }, [_vm._v("Approve images")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, _vm._l(_vm.images, function (image) {
     return _c("div", {
@@ -2514,15 +2523,11 @@ var render = function render() {
       expression: "getImages"
     }],
     staticClass: "d-flex justify-content-center"
-  }, [_c("button", {
-    staticClass: "load-more-button",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.getImages.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("LOAD MORE")])]) : _vm._e()]);
+  }) : _vm._e(), _vm._v(" "), _vm.loader ? _c("div", {
+    staticClass: "d-flex justify-content-center mt-5"
+  }, [_c("div", {
+    staticClass: "loader"
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
