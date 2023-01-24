@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
-
+use Illuminate\Http\JsonResponse;
 
 class FavoriteController extends Controller
 {
@@ -16,7 +16,7 @@ class FavoriteController extends Controller
         return view('frontend.favorites');
     }
 
-    public function addToFavorite(Image $image)
+    public function addToFavorite(Image $image): JsonResponse
     {
         $image->favorites()->toggle(Auth()->id());
         $imageCount = $image->favorites()->count();

@@ -14,7 +14,7 @@ class UploadController extends Controller
         return view('frontend.upload');
     }
 
-    public function upload(UploadImageRequest $request)
+    public function upload(UploadImageRequest $request): void
     {
         $user = Auth()->user();
         $imageName = (new UploadImageService())->get($request);

@@ -2002,32 +2002,51 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loginPage: true,
-      errors: ''
+      loginForm: {
+        email: '',
+        password: ''
+      },
+      registerForm: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        is_admin: 0
+      },
+      errors: {
+        name: '',
+        email: '',
+        password: ''
+      }
     };
   },
   methods: {
-    switchPages: function switchPages() {
-      this.loginPage = !this.loginPage;
-      this.errors = '';
+    resetValidation: function resetValidation() {
+      this.errors = {
+        name: '',
+        email: '',
+        password: ''
+      };
     },
     login: function login() {
       var _this = this;
-      var formData = new FormData(document.getElementById('sign-in-form'));
-      axios.post('/login', formData).then(function () {
+      this.resetValidation();
+      axios.post('/login', this.loginForm).then(function () {
         window.location.reload();
       })["catch"](function (e) {
-        _this.errors = e.response.data.errors.email[0];
+        _this.errors.password = e.response.data.errors.password[0];
+        _this.errors.email = e.response.data.errors.email[0];
       });
     },
     register: function register() {
       var _this2 = this;
-      var formData = new FormData(document.getElementById('register-form'));
-      axios.post('/register', formData).then(function () {
+      this.resetValidation();
+      axios.post('/register', this.registerForm).then(function () {
         window.location.reload();
       })["catch"](function (e) {
-        _this2.errors = e.response.data.errors.password[0];
-        _this2.errors = e.response.data.errors.email[0];
-        _this2.errors = e.response.data.errors.name[0];
+        _this2.errors.password = e.response.data.errors.password[0];
+        _this2.errors.email = e.response.data.errors.email[0];
+        _this2.errors.name = e.response.data.errors.name[0];
       });
     }
   }
@@ -2304,22 +2323,18 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container text-center"
-  }, [_vm.loginPage ? _c("div", {
+  }, [_c("div", {
     staticClass: "main"
-  }, [_c("form", {
-    attrs: {
-      id: "sign-in-form"
-    }
   }, [_c("div", {
     staticClass: "header"
-  }, [_vm._v("\n                LOGIN\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n            LOGIN\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "btn-group"
   }, [_c("button", {
     staticClass: "sign-button active",
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.switchPages.apply(null, arguments);
+        _vm.resetValidation(), _vm.loginPage = true;
       }
     }
   }, [_vm._v("SIGN IN")]), _vm._v(" "), _c("button", {
@@ -2327,10 +2342,66 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.switchPages.apply(null, arguments);
+        _vm.resetValidation(), _vm.loginPage = false;
       }
     }
-  }, [_vm._v("SIGN UP")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("button", {
+  }, [_vm._v("SIGN UP")])]), _vm._v(" "), _vm.loginPage ? _c("form", {
+    attrs: {
+      id: "sign-in-form"
+    }
+  }, [_c("div", {
+    staticClass: "email"
+  }, [_c("div", [_vm._v("EMAIL")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.loginForm.email,
+      expression: "loginForm.email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "email",
+      placeholder: "your email",
+      name: "email"
+    },
+    domProps: {
+      value: _vm.loginForm.email
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.loginForm, "email", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.email != "" ? _c("div", {
+    staticClass: "text-danger mt-3"
+  }, [_vm._v(_vm._s(_vm.errors.email))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "password"
+  }, [_c("div", [_vm._v("Password")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.loginForm.password,
+      expression: "loginForm.password"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "password",
+      placeholder: "your password",
+      name: "password"
+    },
+    domProps: {
+      value: _vm.loginForm.password
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.loginForm, "password", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.password != "" ? _c("div", {
+    staticClass: "text-danger mt-3"
+  }, [_vm._v(_vm._s(_vm.errors.password))]) : _vm._e()]), _vm._v(" "), _c("button", {
     staticClass: "main-button",
     attrs: {
       type: "submit"
@@ -2341,35 +2412,149 @@ var render = function render() {
         return _vm.login.apply(null, arguments);
       }
     }
-  }, [_vm._v("SIGN IN")]), _vm._v(" "), _vm.errors != "" ? _c("div", {
-    staticClass: "text-danger mt-3"
-  }, [_vm._v(_vm._s(_vm.errors))]) : _vm._e()])]) : _c("div", {
-    staticClass: "main"
-  }, [_c("form", {
+  }, [_vm._v("SIGN IN")])]) : _c("form", {
     attrs: {
       id: "register-form"
     }
   }, [_c("div", {
-    staticClass: "header"
-  }, [_vm._v("\n                LOGIN\n            ")]), _vm._v(" "), _c("div", {
-    staticClass: "btn-group"
-  }, [_c("button", {
-    staticClass: "sign-button",
+    staticClass: "email"
+  }, [_c("div", [_vm._v("name")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registerForm.name,
+      expression: "registerForm.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      placeholder: "your name",
+      name: "name"
+    },
+    domProps: {
+      value: _vm.registerForm.name
+    },
     on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.switchPages.apply(null, arguments);
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.registerForm, "name", $event.target.value);
       }
     }
-  }, [_vm._v("SIGN IN")]), _vm._v(" "), _c("button", {
-    staticClass: "sign-button active",
+  }), _vm._v(" "), _vm.errors.name != "" ? _c("div", {
+    staticClass: "text-danger mt-3"
+  }, [_vm._v(_vm._s(_vm.errors.name))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "email"
+  }, [_c("div", [_vm._v("EMAIL")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registerForm.email,
+      expression: "registerForm.email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "email",
+      placeholder: "your email",
+      name: "email"
+    },
+    domProps: {
+      value: _vm.registerForm.email
+    },
     on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.switchPages.apply(null, arguments);
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.registerForm, "email", $event.target.value);
       }
     }
-  }, [_vm._v("SIGN UP")])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _vm.errors.email != "" ? _c("div", {
+    staticClass: "text-danger mt-3"
+  }, [_vm._v(_vm._s(_vm.errors.email))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "password"
+  }, [_c("div", [_vm._v("Password")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registerForm.password,
+      expression: "registerForm.password"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "password",
+      placeholder: "your password",
+      name: "password"
+    },
+    domProps: {
+      value: _vm.registerForm.password
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.registerForm, "password", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.password != "" ? _c("div", {
+    staticClass: "text-danger mt-3"
+  }, [_vm._v(_vm._s(_vm.errors.password))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "password"
+  }, [_c("div", [_vm._v("repeat Password")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registerForm.password_confirmation,
+      expression: "registerForm.password_confirmation"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "password",
+      placeholder: "repeat your password",
+      name: "password_confirmation"
+    },
+    domProps: {
+      value: _vm.registerForm.password_confirmation
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.registerForm, "password_confirmation", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "check-admin"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.registerForm.is_admin,
+      expression: "registerForm.is_admin"
+    }],
+    attrs: {
+      type: "checkbox",
+      name: "is_admin",
+      "true-value": "1",
+      "false-value": "0"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.registerForm.is_admin) ? _vm._i(_vm.registerForm.is_admin, null) > -1 : _vm._q(_vm.registerForm.is_admin, "1")
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.registerForm.is_admin,
+          $$el = $event.target,
+          $$c = $$el.checked ? "1" : "0";
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.registerForm, "is_admin", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.registerForm, "is_admin", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.registerForm, "is_admin", $$c);
+        }
+      }
+    }
+  }), _vm._v("is admin\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "main-button",
     attrs: {
       type: "button"
@@ -2380,103 +2565,9 @@ var render = function render() {
         return _vm.register.apply(null, arguments);
       }
     }
-  }, [_vm._v("SIGN UP")]), _vm._v(" "), _vm.errors != "" ? _c("div", {
-    staticClass: "text-danger mt-3"
-  }, [_vm._v(_vm._s(_vm.errors))]) : _vm._e()])])]);
+  }, [_vm._v("SIGN UP")])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "email"
-  }, [_c("div", [_vm._v("EMAIL")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      placeholder: "your email",
-      name: "email"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "password"
-  }, [_c("div", [_vm._v("Password")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "password",
-      placeholder: "your password",
-      name: "password"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "email"
-  }, [_c("div", [_vm._v("name")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      placeholder: "your name",
-      name: "name"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "email"
-  }, [_c("div", [_vm._v("EMAIL")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      placeholder: "your email",
-      name: "email"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "password"
-  }, [_c("div", [_vm._v("Password")]), _vm._v(" "), _c("div", {
-    staticClass: "input-box"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "password",
-      placeholder: "your password",
-      name: "password"
-    }
-  })])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "password"
-  }, [_c("div", [_vm._v("repeat Password")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "password",
-      placeholder: "repeat your password",
-      name: "password_confirmation"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "check-admin"
-  }, [_c("input", {
-    attrs: {
-      type: "checkbox",
-      name: "is_admin",
-      value: "1"
-    }
-  }), _vm._v("is admin\n            ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -7096,7 +7187,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.container[data-v-379a6646] {\n    color: #000000;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.container .header[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 34px;\n    line-height: 40px;\n    margin-bottom: 48px;\n}\n.container .main .sign-button[data-v-379a6646] {\n    width: 184px;\n    height: 40px;\n    box-sizing: border-box;\n    background: #C4C4C4;\n    border: 1px solid #C4C4C4;\n}\n.main .email[data-v-379a6646] {\n    margin-top: 20px;\n}\n.main .email div[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n}\n.form-control[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 12px;\n    line-height: 14px;\n    text-transform: uppercase;\n    width: 368px;\n    height: 55px;\n    color: #C4C4C4;\n    border: 1px solid #C4C4C4;\n    background-color: white;\n    margin-top: 10px;\n}\ninput[type=\"text\"][data-v-379a6646]::-moz-placeholder {\n\n    /* Firefox, Chrome, Opera */\n    text-align: center;\n}\ninput[type=\"text\"][data-v-379a6646]::placeholder {\n\n    /* Firefox, Chrome, Opera */\n    text-align: center;\n}\n.main .password[data-v-379a6646] {\n    margin-top: 10px;\n}\n.main .password div[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n}\ninput[type=\"password\"][data-v-379a6646]::-moz-placeholder {\n\n    text-align: center;\n}\ninput[type=\"password\"][data-v-379a6646]::placeholder {\n\n    text-align: center;\n}\n.main .main-button[data-v-379a6646] {\n    width: 368px;\n    height: 69px;\n    background: #515151;\n    border-radius: 500px;\n    margin-top: 35px;\n    font-weight: 700;\n    font-size: 18px;\n    line-height: 21px;\n    color: white;\n    text-transform: uppercase;\n}\n.check-admin[data-v-379a6646] {\n    margin-top: 25px;\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n    color: #515151;\n    margin-left: -295px !important;\n}\n.check-admin input[type='checkbox'][data-v-379a6646] {\n    width: 19px;\n    height: 13px;\n    background-color: #C4C4C4;\n\n    border: 5px solid #000000;\n}\n.active[data-v-379a6646] {\n    background-color: #FFFFFF !important;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-379a6646] {\n    color: #000000;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.container .header[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 34px;\n    line-height: 40px;\n    margin-bottom: 48px;\n}\n.container .main .sign-button[data-v-379a6646] {\n    width: 184px;\n    height: 40px;\n    box-sizing: border-box;\n    background: #C4C4C4;\n    border: 1px solid #C4C4C4;\n}\n.main .email[data-v-379a6646] {\n    margin-top: 20px;\n}\n.main .email div[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n}\n.form-control[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 12px;\n    line-height: 14px;\n    text-transform: uppercase;\n    width: 368px;\n    height: 55px;\n    color: #C4C4C4;\n    border: 1px solid #C4C4C4;\n    background-color: white;\n    margin-top: 10px;\n}\ninput[type=\"text\"][data-v-379a6646]::-moz-placeholder {\n    text-align: center;\n}\ninput[type=\"text\"][data-v-379a6646]::placeholder {\n    text-align: center;\n}\ninput[type=\"email\"][data-v-379a6646]::-moz-placeholder {\n    text-align: center;\n}\ninput[type=\"email\"][data-v-379a6646]::placeholder {\n    text-align: center;\n}\n.main .password[data-v-379a6646] {\n    margin-top: 10px;\n}\n.main .password div[data-v-379a6646] {\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n}\ninput[type=\"password\"][data-v-379a6646]::-moz-placeholder {\n\n    text-align: center;\n}\ninput[type=\"password\"][data-v-379a6646]::placeholder {\n\n    text-align: center;\n}\n.main .main-button[data-v-379a6646] {\n    width: 368px;\n    height: 69px;\n    background: #515151;\n    border-radius: 500px;\n    margin-top: 35px;\n    font-weight: 700;\n    font-size: 18px;\n    line-height: 21px;\n    color: white;\n    text-transform: uppercase;\n}\n.check-admin[data-v-379a6646] {\n    margin-top: 25px;\n    font-weight: 700;\n    font-size: 14px;\n    line-height: 16px;\n    text-transform: uppercase;\n    color: #515151;\n    margin-left: -295px !important;\n}\n.check-admin input[type='checkbox'][data-v-379a6646] {\n    width: 19px;\n    height: 13px;\n    background-color: #C4C4C4;\n\n    border: 5px solid #000000;\n}\n.active[data-v-379a6646] {\n    background-color: #FFFFFF !important;\n}\n", ""]);
 
 // exports
 

@@ -16,7 +16,7 @@ class AdminController extends Controller
         return view('admin.approve');
     }
 
-    public function approveImage(Image $image)
+    public function approveImage(Image $image): void
     {
         $image->update([
             'approved' => 1

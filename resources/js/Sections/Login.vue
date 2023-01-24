@@ -1,71 +1,65 @@
 <template>
 
     <div class="container text-center">
-        <div class="main" v-if="loginPage">
-            <form id="sign-in-form">
-                <div class="header">
-                    LOGIN
-                </div>
-
-                <div class="btn-group">
-                    <button class="sign-button active" @click.prevent="switchPages">SIGN IN</button>
-                    <button class="sign-button" @click.prevent="switchPages">SIGN UP</button>
-                </div>
+        <div class="main">
+            <div class="header">
+                LOGIN
+            </div>
+            <div class="btn-group">
+                <button class="sign-button active" @click.prevent="resetValidation(),loginPage=true;">SIGN IN</button>
+                <button class="sign-button" @click.prevent="resetValidation(),loginPage=false;">SIGN UP</button>
+            </div>
+            <form id="sign-in-form" v-if="loginPage">
                 <div class="email">
                     <div>EMAIL</div>
-                    <input type="text" placeholder="your email" class="form-control" name="email">
+                    <input type="email" placeholder="your email" class="form-control" name="email"
+                           v-model="loginForm.email">
+                    <div class="text-danger mt-3" v-if="errors.email != ''">{{ errors.email }}</div>
                 </div>
                 <div class="password">
                     <div>Password</div>
-                    <input type="password" placeholder="your password" class="form-control" name="password">
-
+                    <input type="password" placeholder="your password" class="form-control" name="password"
+                           v-model="loginForm.password">
+                    <div class="text-danger mt-3" v-if="errors.password != ''">{{ errors.password }}</div>
                 </div>
                 <button type="submit" @click.prevent="login" class="main-button">SIGN IN</button>
-                <div class="text-danger mt-3" v-if="errors != ''">{{ errors }}</div>
-
             </form>
 
-        </div>
-        <div class="main" v-else>
-            <form id="register-form">
-                <div class="header">
-                    LOGIN
-                </div>
-                <div class="btn-group">
-                    <button class="sign-button" @click.prevent="switchPages">SIGN IN</button>
-                    <button class="sign-button active" @click.prevent="switchPages">SIGN UP</button>
-                </div>
+            <form id="register-form" v-else>
                 <div class="email">
                     <div>name</div>
-
-                    <input type="text" placeholder="your name" class="form-control" name="name">
+                    <input type="text" placeholder="your name" class="form-control" name="name"
+                           v-model="registerForm.name">
+                    <div class="text-danger mt-3" v-if="errors.name != ''">{{ errors.name }}</div>
                 </div>
                 <div class="email">
                     <div>EMAIL</div>
-
-                    <input type="text" placeholder="your email" class="form-control" name="email">
+                    <input type="email" placeholder="your email" class="form-control" name="email"
+                           v-model="registerForm.email">
+                    <div class="text-danger mt-3" v-if="errors.email != ''">{{ errors.email }}</div>
                 </div>
                 <div class="password">
                     <div>Password</div>
-                    <div class="input-box">
-                        <input type="password" placeholder="your password" class="form-control" name="password">
-                    </div>
+                    <input type="password" placeholder="your password" class="form-control" name="password"
+                           v-model="registerForm.password">
+                    <div class="text-danger mt-3" v-if="errors.password != ''">{{ errors.password }}</div>
                 </div>
                 <div class="password">
                     <div>repeat Password</div>
                     <input type="password" placeholder="repeat your password" class="form-control"
-                           name="password_confirmation">
+                           name="password_confirmation" v-model="registerForm.password_confirmation">
                 </div>
                 <div class="check-admin">
-                    <input type="checkbox" name="is_admin" value="1">is admin
+                    <input type="checkbox" name="is_admin" true-value="1"
+                           false-value="0" v-model="registerForm.is_admin">is admin
                 </div>
                 <button type="button" class="main-button" @click.prevent="register">SIGN UP</button>
-                <div class="text-danger mt-3" v-if="errors != ''">{{ errors }}</div>
 
             </form>
         </div>
-
     </div>
+
+
 </template>
 
 <script>
@@ -74,31 +68,49 @@ export default {
     data() {
         return {
             loginPage: true,
-            errors: '',
+            loginForm: {
+                email: '',
+                password: '',
+            },
+            registerForm: {
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
+                is_admin: 0,
+            },
+            errors: {
+                name: '',
+                email: '',
+                password: ''
+            },
         }
     },
     methods: {
-        switchPages() {
-            this.loginPage = !this.loginPage
-            this.errors = '';
+        resetValidation() {
+            this.errors = {
+                name: '',
+                email: '',
+                password: ''
+            }
         },
         login() {
-            const formData = new FormData(document.getElementById('sign-in-form'));
-            axios.post('/login', formData).then(() => {
+            this.resetValidation();
+            axios.post('/login', this.loginForm).then(() => {
                 window.location.reload();
             }).catch(e => {
-                this.errors = e.response.data.errors.email[0];
-
+                this.errors.password = e.response.data.errors.password[0];
+                this.errors.email = e.response.data.errors.email[0];
             })
         },
         register() {
-            const formData = new FormData(document.getElementById('register-form'));
-            axios.post('/register', formData).then(() => {
+            this.resetValidation();
+            axios.post('/register', this.registerForm).then(() => {
                 window.location.reload();
             }).catch(e => {
-                this.errors = e.response.data.errors.password[0];
-                this.errors = e.response.data.errors.email[0];
-                this.errors = e.response.data.errors.name[0];
+                this.errors.password = e.response.data.errors.password[0];
+                this.errors.email = e.response.data.errors.email[0];
+                this.errors.name = e.response.data.errors.name[0];
 
             })
         }
@@ -157,8 +169,10 @@ export default {
 
 
 input[type="text"]::placeholder {
+    text-align: center;
+}
 
-    /* Firefox, Chrome, Opera */
+input[type="email"]::placeholder {
     text-align: center;
 }
 
