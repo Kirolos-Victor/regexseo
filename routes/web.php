@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/get-images', 'HomeController@getImages');
 Route::get('/upload', 'UploadController@index')->name('upload');
 Route::post('/upload', 'UploadController@upload');
 Route::middleware('admin')->prefix('admin')->group(function () {

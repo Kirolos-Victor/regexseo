@@ -4,7 +4,7 @@
             <a href="/admin/approve" class="btn btn-secondary">Approve images</a>
         </div>
         <div class="row">
-            <div class="col-2" v-for="image in images">
+            <div class="col-lg-2 col-sm-12 col-md-4" v-for="image in images">
                 <image-favorite :image="image"></image-favorite>
             </div>
         </div>
@@ -38,11 +38,11 @@ export default {
             this.loader = true;
             let url;
             if (this.nextPage == null) {
-                url = '/home';
+                url = '/get-images';
             } else {
-                url = '/home?page=' + this.nextPage;
+                url = '/get-images?page=' + this.nextPage;
             }
-            axios.get(url).then((data) => {
+            axios.post(url).then((data) => {
                 this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
                 this.images = this.images.concat(data.data.data);
                 this.loader = false;

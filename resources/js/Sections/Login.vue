@@ -99,8 +99,8 @@ export default {
             axios.post('/login', this.loginForm).then(() => {
                 window.location.reload();
             }).catch(e => {
-                this.errors.password = e.response.data.errors.password[0];
-                this.errors.email = e.response.data.errors.email[0];
+                this.errors.password = e.response.data.errors.password == undefined ? '' : e.response.data.errors.password[0];
+                this.errors.email = e.response.data.errors.email == undefined ? '' : e.response.data.errors.email[0];
             })
         },
         register() {
@@ -108,9 +108,9 @@ export default {
             axios.post('/register', this.registerForm).then(() => {
                 window.location.reload();
             }).catch(e => {
-                this.errors.password = e.response.data.errors.password[0];
-                this.errors.email = e.response.data.errors.email[0];
-                this.errors.name = e.response.data.errors.name[0];
+                this.errors.password = e.response.data.errors.password == undefined ? '' : e.response.data.errors.password[0];
+                this.errors.email = e.response.data.errors.email == undefined ? '' : e.response.data.errors.email[0];
+                this.errors.name = e.response.data.errors.name == undefined ? '' : e.response.data.errors.name[0];
 
             })
         }

@@ -2034,8 +2034,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/login', this.loginForm).then(function () {
         window.location.reload();
       })["catch"](function (e) {
-        _this.errors.password = e.response.data.errors.password[0];
-        _this.errors.email = e.response.data.errors.email[0];
+        _this.errors.password = e.response.data.errors.password == undefined ? '' : e.response.data.errors.password[0];
+        _this.errors.email = e.response.data.errors.email == undefined ? '' : e.response.data.errors.email[0];
       });
     },
     register: function register() {
@@ -2044,9 +2044,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/register', this.registerForm).then(function () {
         window.location.reload();
       })["catch"](function (e) {
-        _this2.errors.password = e.response.data.errors.password[0];
-        _this2.errors.email = e.response.data.errors.email[0];
-        _this2.errors.name = e.response.data.errors.name[0];
+        _this2.errors.password = e.response.data.errors.password == undefined ? '' : e.response.data.errors.password[0];
+        _this2.errors.email = e.response.data.errors.email == undefined ? '' : e.response.data.errors.email[0];
+        _this2.errors.name = e.response.data.errors.name == undefined ? '' : e.response.data.errors.name[0];
       });
     }
   }
@@ -2084,11 +2084,11 @@ __webpack_require__.r(__webpack_exports__);
       this.loader = true;
       var url;
       if (this.nextPage == null) {
-        url = '/home';
+        url = '/get-images';
       } else {
-        url = '/home?page=' + this.nextPage;
+        url = '/get-images?page=' + this.nextPage;
       }
-      axios.get(url).then(function (data) {
+      axios.post(url).then(function (data) {
         _this.nextPage = data.data.next_page_url !== null ? data.data.next_page_url.substring(data.data.next_page_url.indexOf('=') + 1) : null;
         _this.images = _this.images.concat(data.data.data);
         _this.loader = false;
@@ -2228,7 +2228,7 @@ var render = function render() {
     staticClass: "row"
   }, _vm._l(_vm.images, function (image) {
     return _c("div", {
-      staticClass: "col-2"
+      staticClass: "col-lg-2 col-sm-12 col-md-4"
     }, [_c("image-approve", {
       attrs: {
         image: image
@@ -2274,7 +2274,7 @@ var render = function render() {
     staticClass: "row"
   }, _vm._l(_vm.images, function (image) {
     return _c("div", {
-      staticClass: "col-2"
+      staticClass: "col-lg-2 col-sm-12 col-md-4"
     }, [_c("expandable-image", {
       staticClass: "img-fluid",
       attrs: {
@@ -2600,7 +2600,7 @@ var render = function render() {
     staticClass: "row"
   }, _vm._l(_vm.images, function (image) {
     return _c("div", {
-      staticClass: "col-2"
+      staticClass: "col-lg-2 col-sm-12 col-md-4"
     }, [_c("image-favorite", {
       attrs: {
         image: image
